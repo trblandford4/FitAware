@@ -61,7 +61,20 @@
 
             <meta-data
                 android:name="com.google.android.wearable.watchface.wearableConfigurationAction"
-                android:value="com.example.android.wearable.watchface.CONFIG_COMPLICATION"/>
+                android:value="undergradresearch.fitaware.wearable.watchface.CONFIG_COMPLICATION"/>
+
+            <!-- companion configuration activity -->
+            <meta-data
+                android:name=
+                    "com.google.android.wearable.watchface.companionConfigurationAction"
+                android:value=
+                    "undergradresearch.fitaware.wearable.watchface.CONFIG_DIGITAL" />
+            <!-- wearable configuration activity -->
+            <meta-data
+                android:name=
+                    "com.google.android.wearable.watchface.wearableConfigurationAction"
+                android:value=
+                    "undergradresearch.fitaware.android.wearable.watchface.CONFIG_DIGITAL" />
 
             <intent-filter>
                 <action android:name="android.service.wallpaper.WallpaperService" />
@@ -75,7 +88,7 @@
         <activity android:name=".FitAwareActivity"
             android:label="@string/app_name">
             <intent-filter>
-                <action android:name="com.example.android.wearable.watchface.CONFIG_COMPLICATION"/>
+                <action android:name="undergradresearch.fitaware.android.wearable.watchface.CONFIG_COMPLICATION"/>
                 <category android:name="com.google.android.wearable.watchface.category.WEARABLE_CONFIGURATION"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>

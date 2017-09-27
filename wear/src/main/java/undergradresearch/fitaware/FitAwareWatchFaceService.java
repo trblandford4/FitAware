@@ -13,6 +13,8 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.wearable.complications.ComplicationData;
 import android.support.wearable.complications.ComplicationHelperActivity;
 import android.support.wearable.complications.rendering.ComplicationDrawable;
@@ -21,6 +23,10 @@ import android.support.wearable.watchface.WatchFaceStyle;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.wearable.Wearable;
 
 import java.util.Calendar;
 import java.util.TimeZone;
@@ -95,7 +101,9 @@ public class FitAwareWatchFaceService  extends CanvasWatchFaceService {
         return new Engine();
     }
 
-    private class Engine extends CanvasWatchFaceService.Engine {
+    private class Engine extends CanvasWatchFaceService.Engine implements
+            GoogleApiClient.ConnectionCallbacks,
+            GoogleApiClient.OnConnectionFailedListener {
         private static final int MSG_UPDATE_TIME = 0;
 
         private static final float HOUR_AND_MINUTE_STROKE_WIDTH = 5f;
@@ -119,6 +127,8 @@ public class FitAwareWatchFaceService  extends CanvasWatchFaceService {
         private Paint mBackgroundPaint;
 
         private boolean mAmbient;
+
+        private GoogleApiClient mGoogleApiClient;
 
         /*
          * Whether the display supports fewer bits for each color in ambient mode.
@@ -187,6 +197,11 @@ public class FitAwareWatchFaceService  extends CanvasWatchFaceService {
             initializeComplications();
 
             initializeHands();
+            mGoogleApiClient = new GoogleApiClient.Builder(FitAwareWatchFaceService.this)
+                    .addApi(Wearable.API)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .build();
         }
 
         private void initializeBackground() {
@@ -616,6 +631,21 @@ public class FitAwareWatchFaceService  extends CanvasWatchFaceService {
          */
         private boolean shouldTimerBeRunning() {
             return isVisible() && !isInAmbientMode();
+        }
+
+        @Override
+        public void onConnected(@Nullable Bundle bundle) {
+
+        }
+
+        @Override
+        public void onConnectionSuspended(int i) {
+
+        }
+
+        @Override
+        public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
         }
     }
 }

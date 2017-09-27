@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FitAware</string>
+    <string name="toggle_watchface_color_btn_text">Toggle watchface background color</string>
 </resources>
